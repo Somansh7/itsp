@@ -1,0 +1,82 @@
+int input1 = 3 ,input2 = 5, input3 = 6, input4 = 9;
+int blade = 13;
+int outputA = 11; /*output of encoder*/
+boolean color[b][l];
+boolean x; /*to decide left or right u turn*/
+int dist; /*distance covered by bot*/
+int n,p; /*pixel number and length*/
+
+#include <Wire.h> //I2C Arduino Library
+
+#define address 0x1E //0011110b, I2C 7bit address of HMC5883
+
+void setup() {
+   // put your setup code here, to run once:
+    //Initialize Serial and I2C communications
+  Serial.begin(9600);
+  Wire.begin();
+  
+  //Put the HMC5883 IC into the correct operating mode
+  Wire.beginTransmission(address); //open communication with HMC5883
+  Wire.write(0x02); //select mode register
+  Wire.write(0x00); //continuous measurement mode
+  Wire.endTransmission(); 
+  
+pinMode(input1,OUTPUT);
+pinMode(input2,OUTPUT);
+pinMode(input3,OUTPUT);
+pinMode(input4,OUTPUT);
+pinMode(blade,OUTPUT);
+pinMode(outputA,INPUT);
+n=1;j=0; i=0
+dir = true;
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  dist = /*equation of distance in terms of output of encoder. i could also use constraint function.*/
+if ( (color[i][j] == true) && (dist < n*p)) {
+  digitalWrite(input1, HIGH);
+  digitalWrite(input2, HIGH);
+  digitalWrite(input3, HIGH);
+  digitalWrite(input4, HIGH);
+  digitalWrite(blade, HIGH);
+}
+else digitalWrite(blade, LOW);
+if(dist == n*p && x == true){
+  j++;
+  n++;
+}
+if(dist == n*p && x == false){
+  j--;
+  n++;
+}
+/*code for turning in which i need to ensure that distance is not being measured and also dist>n*p.*/
+if ( j == l){
+  int x,y,z; //triple axis data
+
+  //Tell the HMC5883 where to begin reading data
+  Wire.beginTransmission(address);
+  Wire.write(0x03); //select register 3, X MSB register
+  Wire.endTransmission();
+  
+ 
+ //Read data from each axis, 2 registers per axis
+  Wire.requestFrom(address, 6);
+  if(6<=Wire.available()){
+   /* x = Wire.read()<<8; //X msb
+    x |= Wire.read(); //X lsb*/
+    z = Wire.read()<<8; //Z msb
+    z |= Wire.read(); //Z lsb
+    /*y = Wire.read()<<8; //Y msb
+    y |= Wire.read(); //Y lsb*/
+  }
+  dir =!dir;
+  digitalWrite(blade, LOW);
+  digitalWrite(
+}
+if ( i>0 && j==-1){
+  dir =!dir;
+  digitalWrite(blade, LOW);
+}
+}
