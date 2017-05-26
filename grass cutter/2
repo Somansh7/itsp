@@ -1,0 +1,103 @@
+int input1 = 3 ,input2 = 5, input3 = 6, input4 = 9; //input 1&2 for left wheels
+int pwm = //to decide rpm of wheels//
+int blade1 = 7, blade2 = 8;
+int led = 4;
+int photodiode = A0; /*output of encoder*/
+boolean color[b][l];
+boolean x; /*to decide left or right u turn. IF TRUE THEN GOING TO TAKE A RIGHT TURN.*/
+int dist; /*distance covered by bot*/
+int n=1,p; /*pixel number and length*/
+int i=0,j=0; //for array
+int thresh; //for reading from photodiode
+const float pi = 3.14159;
+float r = //radius of tyre
+int h1 = , h2 = , hmin = , HeightPerRevoluton = ;
+
+#include <Stepper.h>
+
+const int stepsPerRevolution = 400;  // change this to fit the number of steps per revolution
+// for your motor
+Stepper myStepper(stepsPerRevolution, 10, 11, 12, 13);
+
+void setup() {
+   // put your setup code here, to run once:
+
+ Serial.begin(9600);
+   
+pinMode(input1,OUTPUT);
+pinMode(input2,OUTPUT);
+pinMode(input3,OUTPUT);
+pinMode(input4,OUTPUT);
+pinMode(blade1,OUTPUT);
+pinMode(blade2,OUTPUT);
+pinMode(photodiode,INPUT);
+pinMode(led,OUTPUT);
+
+// set the speed at 60 rpm:
+  myStepper.setSpeed(60);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+   myStepper.step(((h1-hmin)/HeightPerRevolution)*stepsPerRevolution); //adjust the heght of blade//
+  if ( analogRead(photodiode) > thresh){
+    dist = dist + pi*r; //if two aluminium pieces attatched
+  }
+if ( (color[i][j] == true) && (dist < n*p)) {
+  digitalWrite(led,HIGH);
+  analogWrite(input1,pwm);
+  analogWrite(input2,0);
+  analogWrite(input3,pwm);
+  analogWrite(input4,0);
+  digitalWrite(blade1,HIGH);
+  digitalWrite(blade2,LOW); 
+}
+else {
+  myStepper.step(((h2-h1)/HeightPerRevolution)*stepsPerRevolution); //adjust the heght of blade//
+  digitalWrite(led,HIGH);
+  analogWrite(input1,pwm);
+  analogWrite(input2,0);
+  analogWrite(input3,pwm);
+  analogWrite(input4,0);
+  digitalWrite(blade1,LOW);
+  digitalWrite(blade2,LOW);
+}
+if(dist == n*p && x == true){
+  j++;
+  n++;
+}
+if(dist == n*p && x == false){
+  j--;
+  n++;
+}
+/*code for turning in which i need to ensure that distance is not being measured and also dist>n*p.*/
+if ( j == l) //RIGHT TURN//
+{
+  digitalWrite(led,LOW); //to ensure that distance is not being measured
+  x = !x;
+  i++;
+  j--;
+  
+  digitalWrite(blade1, LOW);
+  digitalWrite(blade2, LOW);
+  analogWrite(input1,pwm);
+  analogWrite(input2,0);
+  analogWrite(input3,pwm);
+  analogWrite(input4,0);
+}
+if (j==-1) //left turn
+{
+  digitalWrite(led,LOW); //to ensure that distance is not being measured
+  x = !x;
+  i++;
+  j++;
+  
+  digitalWrite(blade1, LOW);
+  digitalWrite(blade2, LOW);
+  analogWrite(input1,pwm);
+  analogWrite(input2,0);
+  analogWrite(input3,pwm);
+  analogWrite(input4,0);
+}
+while(i>=b){}; //to make arduino do nothing after entire field is cut//
+}
