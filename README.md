@@ -16,3 +16,19 @@
   * to move over the lawn along the length in a zig zag manner irrespective of design while changing the height of blade whenever required
 #### 1.2.1 Freedom of design
 ##### As we learned more about image processing and arduino coding we realised that giving ttal freedom and writing a general code in arduino was not that difficult as we could produce an 
+
+### 1.3 Android app 
+#### Idea-
+First page takes dimensions of field on which pattern is to be drawn,then this is stored in a integer variable.
+Second page contains drawing code as the user touches the screen , the position  where the user touches is stored in an array which will be used for pixelation afterwards.
+We pixelate this drawing image by enlarging the pixel accordingly ,as one pixel on the screen corresponds to the minimum grass cut by the blade i.e. a circle with diameter 30 cm.
+We pass this processed array (i.e. after pixelation) to arduino which maps it to corresponding pixels on the ground.
+For this we plan to use bluetooth module HC-05.
+#### Refrence-
+1. https://www.raywenderlich.com/120177/beginning-android-development-tutorial-installing-android-studio
+2. https://developer.android.com/training/basics/firstapp/starting-activity.html#BuildIntent
+3. https://www.tutorialspoint.com/android/android_image_effects.htm
+#### Problems faced-
+While using android app even if app is compiled correctly it didn't work then open logcat and searchfor fatal exception on google and try out the solution.
+For running the app on android phone we need to switch on the developer mode.
+
