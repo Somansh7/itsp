@@ -19,11 +19,10 @@
 
 ### 1.3 Android app 
 #### Idea-
-First page takes dimensions of field on which pattern is to be drawn,then this is stored in a integer variable.
-Second page contains drawing code as the user touches the screen , the position  where the user touches is stored in an array which will be used for pixelation afterwards.
-We pixelate this drawing image by enlarging the pixel accordingly ,as one pixel on the screen corresponds to the minimum grass cut by the blade i.e. a circle with diameter 30 cm.
-We pass this processed array (i.e. after pixelation) to arduino which maps it to corresponding pixels on the ground.
-For this we plan to use bluetooth module HC-05.
+* First page takes dimensions of field on which pattern is to be drawn,then this is stored in a integer variable.
+* Second page contains drawing code as the user touches the screen , the position  where the user touches is stored in an array which will be used for pixelation afterwards.
+* We pixelate this drawing image by enlarging the pixel accordingly ,as one pixel on the screen corresponds to the minimum grass cut by the blade i.e. a circle with diameter 30 cm.  
+* We pass this processed array (i.e. after pixelation) to arduino which maps it to corresponding pixels on the ground. For this we plan to use bluetooth module HC-05.
 #### Refrence-
 1. https://www.raywenderlich.com/120177/beginning-android-development-tutorial-installing-android-studio
 2. https://developer.android.com/training/basics/firstapp/starting-activity.html#BuildIntent
